@@ -1,13 +1,17 @@
 package com.kangyonggan.monitor.server;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@Log4j2
 public class MonitorClients {
 
-    private static List<MonitorThread> monitors = new ArrayList();
+    private static volatile List<MonitorThread> monitors = new ArrayList();
+    private static final long heartbeatInterval = 65000;
 
     static {
         init();
@@ -18,20 +22,20 @@ public class MonitorClients {
             public void run() {
                 while (true) {
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(heartbeatInterval);
                         Iterator<MonitorThread> iterator = monitors.iterator();
-//                        while (iterator.hasNext()) {
-//                            MonitorThread monitorThread = iterator.next();
-//                            if (monitorThread.isInvalid()) {
-//                                monitorThread.close();
-//                                System.out.println("thread is dead, removed:" + monitorThread);
-//                                iterator.remove();
-//                            }
-//                        }
+                        while (iterator.hasNext()) {
+                            MonitorThread monitorThread = iterator.next();
+                            if (monitorThread.isInvalid()) {
+                                monitorThread.close();
+                                iterator.remove();
+                                log.info("Thread Is Dead, Removed {}", monitorThread);
+                            }
+                        }
 
-                        System.out.println("has connect " + monitors.size());
+                        log.info("Connected Count: {}", monitors.size());
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        log.error("Check Connect Socket Exception", e);
                     }
                 }
             }
@@ -43,5 +47,12 @@ public class MonitorClients {
         monitors.add(monitorThread);
     }
 
+    public static void remove(MonitorThread monitorThread) {
+        monitorThread.close();
+        monitors.remove(monitorThread);
+    }
 
+    public static List<MonitorThread> getMonitors() {
+        return monitors;
+    }
 }

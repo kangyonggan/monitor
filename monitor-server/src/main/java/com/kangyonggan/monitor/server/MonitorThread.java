@@ -1,14 +1,16 @@
 package com.kangyonggan.monitor.server;
 
-import java.io.BufferedReader;
+import lombok.extern.log4j.Log4j2;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.net.Socket;
 
+@Log4j2
 public class MonitorThread {
 
     private Socket socket;
-    private BufferedReader reader;
+    private InputStream in;
     private boolean isRunning;
     private long lastRequestTime;
 
@@ -17,10 +19,10 @@ public class MonitorThread {
         lastRequestTime = System.currentTimeMillis();
 
         try {
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            in = socket.getInputStream();
             init();
         } catch (Exception e) {
-            close();
+            MonitorClients.remove(this);
             throw e;
         }
     }
@@ -30,29 +32,26 @@ public class MonitorThread {
         new Thread() {
             public void run() {
                 while (isRunning) {
-                    System.out.println("================================");
-                    byte buff[] = new byte[1024];
-                    StringBuilder request = new StringBuilder();
                     try {
-//                        int len = in.read(buff);
-//
-//                        while (len != -1) {
-//                            request.append(new String(buff, 0, len));
-//                            len = in.read(buff);
-//                        }
-                        String line;
-                        System.out.println(reader.ready());;
-                        while ((line = reader.readLine()) != null) {
-                            System.out.println(line);
+                        byte headerBuff[] = new byte[8];
+                        in.read(headerBuff);
+                        String header = new String(headerBuff);
+                        log.info("Request Header: " + header);
+                        int bodyLen = Integer.parseInt(header);
+                        if (bodyLen > 0) {
+                            byte bodyBuff[] = new byte[Integer.parseInt(header)];
+                            in.read(bodyBuff);
+                            String body = new String(bodyBuff);
+                            log.info("Request Body: " + body);
                         }
 
                         lastRequestTime = System.currentTimeMillis();
-//                        System.out.println("receiver:" + line);
 
+                        // TODO 落库
 
                     } catch (IOException e) {
-                        e.printStackTrace();
-                        close();
+                        log.error("Receiver Socket Message Exception", e);
+                        MonitorClients.remove(MonitorThread.this);
                     }
                 }
             }
@@ -60,17 +59,16 @@ public class MonitorThread {
     }
 
     public void close() {
-        System.out.println("close");
         isRunning = false;
         try {
-            if (reader != null) {
-                reader.close();
+            if (in != null) {
+                in.close();
             }
             if (socket != null) {
                 socket.close();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Close Monitor Thread Exception", e);
         }
     }
 
