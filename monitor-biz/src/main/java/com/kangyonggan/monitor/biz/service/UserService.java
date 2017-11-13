@@ -3,6 +3,8 @@ package com.kangyonggan.monitor.biz.service;
 import com.kangyonggan.monitor.model.vo.ShiroUser;
 import com.kangyonggan.monitor.model.vo.User;
 
+import java.util.List;
+
 /**
  * @author kangyonggan
  * @since 11/13/17
@@ -23,5 +25,61 @@ public interface UserService {
      * @return
      */
     User findUserByUsername(String username);
+
+    /**
+     * 按条件搜索用户
+     *
+     * @param pageNum
+     * @param username
+     * @param realname
+     * @param email
+     * @return
+     */
+    List<User> searchUsers(int pageNum, String username, String realname, String email);
+
+    /**
+     * 保存用户
+     *
+     * @param user
+     */
+    void saveUserWithDefaultRole(User user);
+
+    /**
+     * 根据用户名更新用户信息
+     *
+     * @param user
+     */
+    void updateUserByUsername(User user);
+
+    /**
+     * 根据用户id查找用户
+     *
+     * @param id
+     * @return
+     */
+    User findUserById(Long id);
+
+    /**
+     * 更新用户密码
+     *
+     * @param user
+     */
+    void updateUserPassword(User user);
+
+    /**
+     * 更新用户角色
+     *
+     * @param username
+     * @param roleCodes
+     */
+    void updateUserRoles(String username, String roleCodes);
+
+    /**
+     * 判断用户名是否存在
+     *
+     * @param username
+     * @return
+     */
+    boolean existsUsername(String username);
 
 }

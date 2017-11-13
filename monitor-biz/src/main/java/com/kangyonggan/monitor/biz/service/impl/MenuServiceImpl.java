@@ -1,6 +1,7 @@
 package com.kangyonggan.monitor.biz.service.impl;
 
 import com.kangyonggan.extra.core.annotation.Cache;
+import com.kangyonggan.extra.core.annotation.CacheDel;
 import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.monitor.biz.service.MenuService;
 import com.kangyonggan.monitor.mapper.MenuMapper;
@@ -8,6 +9,7 @@ import com.kangyonggan.monitor.model.vo.Menu;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,72 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
         List<Menu> wrapList = new ArrayList();
 
         return recursionList(menus, wrapList, "", 0L);
+    }
+
+    @Override
+    @Log
+    @Cache(key = "menu:role:${code}")
+    public List<Menu> findMenus4Role(String code) {
+        return menuMapper.selectMenus4Role(code);
+    }
+
+    @Override
+    @Log
+    public boolean existsMenuCode(String code) {
+        Menu menu = new Menu();
+        menu.setCode(code);
+
+        return super.exists(menu);
+    }
+
+    @Override
+    @Log
+    @Cache(key = "menu:all")
+    public List<Menu> findAllMenus() {
+        Example example = new Example(Menu.class);
+        example.setOrderByClause("sort asc");
+
+        List<Menu> menus = myMapper.selectByExample(example);
+        List<Menu> wrapList = new ArrayList();
+
+        return recursionTreeList(menus, wrapList, "", 0L);
+    }
+
+    @Override
+    @Log
+    @CacheDel(key = "menu:all")
+    public void saveMenu(Menu menu) {
+        myMapper.insertSelective(menu);
+    }
+
+    @Override
+    @Log
+    @Cache(key = "menu:id:${id}")
+    public Menu findMenuById(Long id) {
+        return myMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    @Log
+    public Menu findMenuByCode(String code) {
+        Menu menu = new Menu();
+        menu.setCode(code);
+
+        return myMapper.selectOne(menu);
+    }
+
+    @Override
+    @Log
+    @CacheDel(key = {"menu:id:${menu.id}", "menu:all", "menu:username*", "menu:role*"})
+    public void updateMenu(Menu menu) {
+        myMapper.updateByPrimaryKeySelective(menu);
+    }
+
+    @Override
+    @Log
+    @CacheDel(key = {"menu:id:${menu.id}", "menu:all", "menu:username*", "menu:role*"})
+    public void deleteMenu(Menu menu) {
+        myMapper.deleteByPrimaryKey(menu);
     }
 
     /**

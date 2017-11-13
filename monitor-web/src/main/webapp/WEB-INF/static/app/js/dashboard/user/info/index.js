@@ -48,7 +48,11 @@ $(function () {
                         Message.success("修改成功");
                         var user = response.user;
                         $("#navFullname").html(user.realname);
-                        $("#userAvatar").attr("src", user.smallAvatar);
+                        var smallAvatar = user.smallAvatar;
+                        if (smallAvatar == '') {
+                            smallAvatar = "/static/app/images/default.jpg";
+                        }
+                        $("#userAvatar").attr("src", ctx + smallAvatar);
                     } else {
                         Message.error(response.errMsg);
                     }

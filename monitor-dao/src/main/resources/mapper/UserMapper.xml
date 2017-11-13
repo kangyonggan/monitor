@@ -18,4 +18,12 @@
         <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
         <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
     </resultMap>
+
+    <insert id="insertUserRoles">
+        INSERT INTO user_role (username, role_code)
+        VALUES
+        <foreach collection="roleCodes" item="roleCode" separator=",">
+            (#{username}, #{roleCode})
+        </foreach>
+    </insert>
 </mapper>

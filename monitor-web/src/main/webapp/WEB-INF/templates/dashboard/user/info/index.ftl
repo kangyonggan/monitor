@@ -26,7 +26,7 @@
                 <h4 class="header blue bolder smaller">基础信息</h4>
 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right">手机号</label>
+                    <label class="col-sm-3 control-label no-padding-right">用户名</label>
 
                     <div class="col-xs-12 col-sm-5">
                         <input class="form-control readonly" readonly type="text" value="${user.username}">
@@ -63,7 +63,7 @@
 
                     <div class="col-xs-12 col-sm-5">
                         <input type="password" id="password" name="password" class="form-control"
-                               placeholder="密码:6至20位的字母数字组合" autocomplete="off"/>
+                               placeholder="请输入8至20位字母和数字的密码" autocomplete="off"/>
                     </div>
                 </div>
 
@@ -73,7 +73,7 @@
                     <label class="col-sm-3 control-label no-padding-right">确认密码<span class="red">*</span></label>
 
                     <div class="col-xs-12 col-sm-5">
-                        <input type="password" name="rePassword" class="form-control" placeholder="密码:6至20位的字母数字组合"
+                        <input type="password" name="rePassword" class="form-control" placeholder="请输入8至20位字母和数字的密码"
                                autocomplete="off"/>
                     </div>
                 </div>

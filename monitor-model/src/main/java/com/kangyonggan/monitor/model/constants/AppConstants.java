@@ -27,4 +27,20 @@ public interface AppConstants {
      * 把验证码存放在session中的key
      */
     String KEY_CAPTCHA = "key-captcha";
+
+    /**
+     * 分页大小
+     */
+    int PAGE_SIZE = 10;
+
+    /**
+     * 默认角色
+     */
+    String DEFAULT_ROLE_CODE = "ROLE_USER";
+
+    /**
+     * 是否删除
+     */
+    byte IS_DELETED_NO = 0;
+    byte IS_DELETED_YES = 1;
 }
