@@ -7,10 +7,10 @@
     <div class="row">
         <div class="row form-group">
             <div class="col-md-3 control-label">
-                <label>手机号<span class="red">*</span></label>
+                <label>用户名<span class="red">*</span></label>
             </div>
             <div class="col-md-7 controls">
-                <@s.formInput "user.username" 'class="form-control" placeholder="请输入可以正常接收短信的手机号"'/>
+                <@s.formInput "user.username" 'class="form-control" placeholder="请输入5-20位字母和数字的用户名"'/>
                 <input type="hidden" id="old-username" value="${user.username!''}"/>
             </div>
         </div>

@@ -5,7 +5,7 @@
     <div class="row">
         <div class="row form-group">
             <div class="col-md-3 control-label">
-                <label>手机号</label>
+                <label>用户名</label>
             </div>
             <div class="col-md-7 controls">
                 <input type="text" name="username" class="form-control readonly" value="${user.username}" readonly/>

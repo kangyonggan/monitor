@@ -4,7 +4,7 @@
     <td>${user.username}</td>
     <td>${user.realname}</td>
     <td>${user.email}</td>
-    <td><a href="${ctx}${user.largeAvatar}" target="_blank">查看</a></td>
+    <td><a href="${ctx}/${(user.smallAvatar!='')?string('${user.smallAvatar}', 'static/app/images/default.jpg')}" target="_blank">查看</a></td>
     <td><#include "delete.ftl"></td>
     <td><@c.relative_date datetime=user.createdTime/></td>
     <td>

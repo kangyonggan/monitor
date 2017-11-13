@@ -18,7 +18,7 @@
 
                         <div class="col-sm-4">
                             <div>
-                                <img class="nav-user-photo" src="${ctx}${user.largeAvatar}"
+                                <img class="nav-user-photo" src="${ctx}/${(user.largeAvatar!='')?string('${user.largeAvatar}', 'static/app/images/default.jpg')}"
                                      alt="${user.realname}">
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                                     <div class="space-4"></div>
 
                                     <li>
-                                        <i class="ace-icon fa fa-caret-right green"></i>手机号：${user.username}
+                                        <i class="ace-icon fa fa-caret-right green"></i>用户名：${user.username}
                                     </li>
 
                                     <div class="space-4"></div>

@@ -17,7 +17,7 @@
 
 <form class="form-inline" method="get">
     <div class="form-group">
-        <input type="text" class="form-control" name="username" value="${username}" placeholder="手机号"
+        <input type="text" class="form-control" name="username" value="${username}" placeholder="用户名"
                autocomplete="off"/>
     </div>
     <div class="form-group">
@@ -40,7 +40,7 @@
 <table id="user-table" class="table table-striped table-bordered table-hover">
     <thead>
     <tr>
-        <th>手机号</th>
+        <th>用户名</th>
         <th>真实姓名</th>
         <th>电子邮箱</th>
         <th>用户头像</th>

@@ -7,7 +7,7 @@ $(function () {
         rules: {
             username: {
                 required: true,
-                isMobile: true,
+                isUsername: true,
                 remote: {
                     url: ctx + "/validate/user",
                     type: 'post',
