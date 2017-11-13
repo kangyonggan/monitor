@@ -10,6 +10,13 @@ import java.util.List;
  */
 public interface RoleService {
 
+    /**
+     * 查找用户角色
+     *
+     * @param username
+     * @return
+     */
     List<Role> findRolesByUsername(String username);
+
 
 }

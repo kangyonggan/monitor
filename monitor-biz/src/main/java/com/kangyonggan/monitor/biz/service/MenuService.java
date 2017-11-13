@@ -10,6 +10,12 @@ import java.util.List;
  */
 public interface MenuService {
 
+    /**
+     * 查找用户菜单
+     *
+     * @param username
+     * @return
+     */
     List<Menu> findMenusByUsername(String username);
 
 }

@@ -225,7 +225,6 @@ VALUES
   ('SYSTEM_USER', '用户管理', 'SYSTEM', 'system/user', 0, ''),
   ('SYSTEM_ROLE', '角色管理', 'SYSTEM', 'system/role', 1, ''),
   ('SYSTEM_MENU', '菜单管理', 'SYSTEM', 'system/menu', 2, ''),
-  ('SYSTEM_CACHE', '缓存管理', 'SYSTEM', 'system/cache', 3, ''),
 
   ('MONITOR', '监控', 'DASHBOARD', 'monitor', 2, 'menu-icon fa fa-bar-chart-o'),
   ('MONITOR_QUERY', '监控查询', 'MONITOR', 'monitor/query', 0, ''),
