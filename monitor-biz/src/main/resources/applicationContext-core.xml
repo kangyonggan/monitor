@@ -10,8 +10,6 @@
     <import resource="applicationContext-datasource.xml"/>
     <!--配置线程池-->
     <import resource="applicationContext-pool.xml"/>
-    <!--redis缓存-->
-    <import resource="applicationContext-redis.xml"/>
     <!--Freemarker模板-->
     <import resource="applicationContext-freemarker.xml"/>
     <!--shiro权限控制-->

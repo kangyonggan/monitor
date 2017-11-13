@@ -2,21 +2,11 @@
 <config>
     <group>
         <!--app-->
-        <property name="monitor.app.name" description="项目名字" defaultValue="未来"/>
-        <property name="monitor.app.name.en" description="项目名字（英文）" defaultValue="monitor"/>
+        <property name="monitor.app.name" description="项目名字" defaultValue="监控中心"/>
+        <property name="monitor.app.name.en" description="项目名字（英文）" defaultValue="Monitor Center"/>
         <property name="monitor.app.author" description="项目负责人" defaultValue="康永敢"/>
         <property name="monitor.app.author.en" description="项目负责人" defaultValue="Yonggan Kang"/>
         <property name="monitor.app.ba.no" description="备案号" defaultValue="皖ICP备16017743号-1"/>
-
-        <!-- redis -->
-        <property name="monitor.redis.maxTotal" description="redis最大连接数" defaultValue="1000"/>
-        <property name="monitor.redis.minIdle" description="redis最小等待数" defaultValue="50"/>
-        <property name="monitor.redis.maxIdle" description="redis最大等待数" defaultValue="100"/>
-        <property name="monitor.redis.testOnBorrow" description="redis测试支持" defaultValue="true"/>
-        <property name="monitor.redis.host" description="redis主机ip" defaultValue="127.0.0.1"/>
-        <property name="monitor.redis.port" description="redis主机端口" defaultValue="6379"/>
-        <property name="monitor.redis.password" description="redis密码" defaultValue="123456"/>
-        <property name="monitor.redis.prefix" description="redis的key的前缀" defaultValue="monitor"/>
 
         <!--jdbc-->
         <property name="monitor.jdbc.driver" description="jdbc驱动" defaultValue="com.mysql.jdbc.Driver"/>
@@ -36,7 +26,6 @@
 
     <script>
         <generate template="applicationContext-datasource.xml" charset="UTF-8"/>
-        <generate template="applicationContext-redis.xml" charset="UTF-8"/>
         <generate template="messages_en_US.properties" charset="UTF-8"/>
         <generate template="messages_zh_CN.properties" charset="UTF-8"/>
         <generate template="log4j2.xml"/>
