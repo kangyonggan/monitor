@@ -52,7 +52,7 @@ public class ServerController {
      * @return
      */
     @RequestMapping(value = "test", method = RequestMethod.GET)
-    @Monitor(type = "pay")
+    @Monitor(description = "测试监控能不能落库")
     public String test(@RequestParam(value = "name", required = false, defaultValue = "Monitor") String name) {
         try {
             Thread.sleep(1000);

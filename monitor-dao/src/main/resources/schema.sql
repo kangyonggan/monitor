@@ -147,6 +147,55 @@ CREATE TABLE role_menu
 )
   COMMENT '角色菜单表';
 
+-- ----------------------------
+--  Table structure for monitor
+-- ----------------------------
+DROP TABLE
+IF EXISTS monitor;
+
+CREATE TABLE monitor
+(
+  id           BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL
+  COMMENT '主键',
+  app          VARCHAR(20)                           NOT NULL                    DEFAULT ''
+  COMMENT '系统名称',
+  type         VARCHAR(32)                           NOT NULL                    DEFAULT ''
+  COMMENT '监控类型',
+  description  VARCHAR(128)                          NOT NULL                    DEFAULT ''
+  COMMENT '描述',
+  package_name VARCHAR(128)                          NOT NULL                    DEFAULT ''
+  COMMENT '包名',
+  class_name   VARCHAR(32)                           NOT NULL                    DEFAULT ''
+  COMMENT '类名',
+  method_name  VARCHAR(32)                           NOT NULL                    DEFAULT ''
+  COMMENT '方法名',
+  begin_time   BIGINT                                NOT NULL
+  COMMENT '开始时间',
+  end_time     BIGINT                                NOT NULL
+  COMMENT '结束时间',
+  return_value LONGTEXT                              NOT NULL
+  COMMENT '返回值',
+  args         LONGTEXT                              NOT NULL
+  COMMENT '参数',
+  is_deleted   TINYINT                               NOT NULL                    DEFAULT 0
+  COMMENT '逻辑删除',
+  created_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP
+  COMMENT '创建时间',
+  updated_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  COMMENT '更新时间'
+)
+  COMMENT '监控表';
+CREATE UNIQUE INDEX id_UNIQUE
+  ON monitor (id);
+CREATE INDEX created_time_ix
+  ON monitor (created_time);
+CREATE INDEX app_ix
+  ON monitor (app);
+CREATE INDEX begin_time_ix
+  ON monitor (begin_time);
+CREATE INDEX end_time_ix
+  ON monitor (end_time);
+
 #====================初始数据====================#
 
 # 用户 admin
