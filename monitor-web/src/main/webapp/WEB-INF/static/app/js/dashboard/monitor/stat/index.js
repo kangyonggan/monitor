@@ -1,86 +1,125 @@
 $(function () {
     updateState("monitor/stat");
 
-    $(".datetime").datetimepicker({
-        language: 'zh-CN',
-        autoclose: 1,
-        todayBtn: 1,
-        pickerPosition: "bottom-left",
-        minuteStep: 1,
-        format: 'yyyy-mm-dd hh:ii',
-        minView: 'hour'
-    });
+    var option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: 'auto'
+                }
+            }
+        },
+        legend: {
+            data: ['并发量', '平均耗时', 'TPS']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                saveAsImage: {show: true}
+            }
+        },
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: true,
+                data: (function () {
+                    var now = new Date();
+                    var res = [];
+                    var len = 10;
+                    while (len--) {
+                        res.unshift(now.pattern("HH:mm:ss") + "+2");
+                        now = new Date(now - 2000);
+                    }
+                    return res;
+                })()
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '并发量&TPS',
+                scale: true,
+                max: 30,
+                min: 0,
+                boundaryGap: [0.2, 0.2]
+            },
+            {
+                type: 'value',
+                name: '平均耗时(ms)',
+                scale: true,
+                max: 2000,
+                min: 500,
+                boundaryGap: [0.2, 0.2]
+            }
+        ],
+        series: [
+            {
+                name: '并发量',
+                type: 'line',
+                data: (function () {
+                    var res = [];
+                    var len = 0;
+                    while (len < 10) {
+                        res.push((Math.random() * 10 + 5).toFixed(1) - 0);
+                        len++;
+                    }
+                    return res;
+                })()
+            },
+            {
+                name: '平均耗时',
+                type: 'line',
+                data: (function () {
+                    var res = [];
+                    var len = 0;
+                    while (len < 10) {
+                        res.push((Math.random() * 10 + 5).toFixed(1) - 0);
+                        len++;
+                    }
+                    return res;
+                })()
+            },
+            {
+                name: 'TPS',
+                type: 'line',
+                data: (function () {
+                    var res = [];
+                    var len = 0;
+                    while (len < 10) {
+                        res.push((Math.random() * 10 + 5).toFixed(1) - 0);
+                        len++;
+                    }
+                    return res;
+                })()
+            }
+        ]
+    };
 
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('echart'));
-
-    var data = [["2000-06-05",116],["2000-06-06",129],["2000-06-07",135],["2000-06-08",86],["2000-06-09",73],["2000-06-10",85],["2000-06-11",73],["2000-06-12",68],["2000-06-13",92],["2000-06-14",130],["2000-06-15",245],["2000-06-16",139],["2000-06-17",115],["2000-06-18",111],["2000-06-19",309],["2000-06-20",206],["2000-06-21",137],["2000-06-22",128],["2000-06-23",85],["2000-06-24",94],["2000-06-25",71],["2000-06-26",106],["2000-06-27",84],["2000-06-28",93],["2000-06-29",85],["2000-06-30",73],["2000-07-01",83],["2000-07-02",125],["2000-07-03",107],["2000-07-04",82],["2000-07-05",44],["2000-07-06",72],["2000-07-07",106],["2000-07-08",107],["2000-07-09",66],["2000-07-10",91],["2000-07-11",92],["2000-07-12",113],["2000-07-13",107],["2000-07-14",131],["2000-07-15",111],["2000-07-16",64],["2000-07-17",69],["2000-07-18",88],["2000-07-19",77],["2000-07-20",83],["2000-07-21",111],["2000-07-22",57],["2000-07-23",55],["2000-07-24",60]];
-
-    var dateList = data.map(function (item) {
-        return item[0];
-    });
-    var valueList = data.map(function (item) {
-        return item[1];
-    });
-
-    var option = {
-
-        // Make gradient line here
-        visualMap: [{
-            show: false,
-            type: 'continuous',
-            seriesIndex: 0,
-            min: 0,
-            max: 400
-        }, {
-            show: false,
-            type: 'continuous',
-            seriesIndex: 1,
-            dimension: 0,
-            min: 0,
-            max: dateList.length - 1
-        }],
-
-        title: [{
-            left: 'center',
-            text: 'Gradient along the y axis'
-        }, {
-            top: '55%',
-            left: 'center',
-            text: 'Gradient along the x axis'
-        }],
-        tooltip: {
-            trigger: 'axis'
-        },
-        xAxis: [{
-            data: dateList
-        }, {
-            data: dateList,
-            gridIndex: 1
-        }],
-        yAxis: [{
-            splitLine: {show: false}
-        }, {
-            splitLine: {show: false},
-            gridIndex: 1
-        }],
-        grid: [{
-            bottom: '60%'
-        }, {
-            top: '60%'
-        }],
-        series: [{
-            type: 'line',
-            showSymbol: false,
-            data: valueList
-        }, {
-            type: 'line',
-            showSymbol: false,
-            data: valueList,
-            xAxisIndex: 1,
-            yAxisIndex: 1
-        }]
-    };
-
     myChart.setOption(option);
+
+    count = 11;
+    setInterval(function () {
+
+        option.series[0].data.shift();
+        option.series[0].data.push(Math.round(Math.random() * 20));
+
+        option.series[1].data.shift();
+        option.series[1].data.push(Math.round(Math.random() * 20));
+
+        option.series[2].data.shift();
+        option.series[2].data.push(Math.round(Math.random() * 20));
+
+        var axisData = new Date().pattern("HH:mm:ss") + "+2";
+        option.xAxis[0].data.shift();
+        option.xAxis[0].data.push(axisData);
+
+        myChart.setOption(option);
+    }, 2000);
+
+
+
 });

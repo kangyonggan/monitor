@@ -228,7 +228,7 @@ VALUES
 
   ('MONITOR', '监控', 'DASHBOARD', 'monitor', 2, 'menu-icon fa fa-bar-chart-o'),
   ('MONITOR_QUERY', '监控查询', 'MONITOR', 'monitor/query', 0, ''),
-  ('MONITOR_STAT', '监控统计', 'MONITOR', 'monitor/stat', 1, ''),
+  ('MONITOR_STAT', '实时监控', 'MONITOR', 'monitor/stat', 1, ''),
 
   ('USER', '我的', 'DASHBOARD', 'user', 3, 'menu-icon fa fa-user'),
   ('USER_INFO', '基本信息', 'USER', 'user/info', 0, '');
