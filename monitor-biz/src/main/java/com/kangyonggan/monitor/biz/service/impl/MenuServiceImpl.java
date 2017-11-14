@@ -1,7 +1,5 @@
 package com.kangyonggan.monitor.biz.service.impl;
 
-import com.kangyonggan.extra.core.annotation.Cache;
-import com.kangyonggan.extra.core.annotation.CacheDel;
 import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.monitor.biz.service.MenuService;
 import com.kangyonggan.monitor.mapper.MenuMapper;
@@ -26,7 +24,6 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 
     @Override
     @Log
-    @Cache(key = "menu:username:${username}")
     public List<Menu> findMenusByUsername(String username) {
         List<Menu> menus = menuMapper.selectMenusByUsername(username);
         List<Menu> wrapList = new ArrayList();
@@ -36,7 +33,6 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 
     @Override
     @Log
-    @Cache(key = "menu:role:${code}")
     public List<Menu> findMenus4Role(String code) {
         return menuMapper.selectMenus4Role(code);
     }
@@ -52,7 +48,6 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 
     @Override
     @Log
-    @Cache(key = "menu:all")
     public List<Menu> findAllMenus() {
         Example example = new Example(Menu.class);
         example.setOrderByClause("sort asc");
@@ -65,14 +60,12 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 
     @Override
     @Log
-    @CacheDel(key = "menu:all")
     public void saveMenu(Menu menu) {
         myMapper.insertSelective(menu);
     }
 
     @Override
     @Log
-    @Cache(key = "menu:id:${id}")
     public Menu findMenuById(Long id) {
         return myMapper.selectByPrimaryKey(id);
     }
@@ -88,14 +81,12 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 
     @Override
     @Log
-    @CacheDel(key = {"menu:id:${menu.id}", "menu:all", "menu:username*", "menu:role*"})
     public void updateMenu(Menu menu) {
         myMapper.updateByPrimaryKeySelective(menu);
     }
 
     @Override
     @Log
-    @CacheDel(key = {"menu:id:${menu.id}", "menu:all", "menu:username*", "menu:role*"})
     public void deleteMenu(Menu menu) {
         myMapper.deleteByPrimaryKey(menu);
     }

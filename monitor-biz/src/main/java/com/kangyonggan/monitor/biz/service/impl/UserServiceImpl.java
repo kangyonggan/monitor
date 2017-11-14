@@ -1,13 +1,10 @@
 package com.kangyonggan.monitor.biz.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.kangyonggan.extra.core.annotation.Cache;
-import com.kangyonggan.extra.core.annotation.CacheDel;
 import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.monitor.biz.service.UserService;
 import com.kangyonggan.monitor.biz.util.Digests;
 import com.kangyonggan.monitor.biz.util.Encodes;
-import com.kangyonggan.monitor.biz.util.StringUtil;
 import com.kangyonggan.monitor.mapper.RoleMapper;
 import com.kangyonggan.monitor.mapper.UserMapper;
 import com.kangyonggan.monitor.model.constants.AppConstants;
@@ -43,7 +40,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Override
     @Log
-    @Cache(key = "user:username:${username}")
     public User findUserByUsername(String username) {
         if (StringUtils.isEmpty(username)) {
             return null;
@@ -94,7 +90,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Override
     @Log
-    @CacheDel(key = {"user:username:${user.username}", "role:username:${user.username}", "menu:username:${user.username}"})
     public void updateUserByUsername(User user) {
         if (StringUtils.isEmpty(user.getUsername())) {
             return;
@@ -112,7 +107,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Override
     @Log
-    @CacheDel(key = "user:username:${user.username}")
     public void updateUserPassword(User user) {
         User tUser = new User();
         tUser.setUsername(user.getUsername());
@@ -126,7 +120,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Override
     @Log
-    @CacheDel(key = {"role:username:${username}", "menu:username:${username}"})
     public void updateUserRoles(String username, String roleCodes) {
         roleMapper.deleteAllRolesByUsername(username);
 

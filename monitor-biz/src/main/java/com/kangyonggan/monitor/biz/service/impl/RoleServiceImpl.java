@@ -1,8 +1,6 @@
 package com.kangyonggan.monitor.biz.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.kangyonggan.extra.core.annotation.Cache;
-import com.kangyonggan.extra.core.annotation.CacheDel;
 import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.monitor.biz.service.RoleService;
 import com.kangyonggan.monitor.mapper.RoleMapper;
@@ -28,7 +26,6 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
     @Override
     @Log
-    @Cache(key = "role:username:${username}")
     public List<Role> findRolesByUsername(String username) {
         return roleMapper.selectRolesByUsername(username);
     }
@@ -44,7 +41,6 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
     @Override
     @Log
-    @Cache(key = "role:all")
     public List<Role> findAllRoles() {
         Role role = new Role();
         role.setIsDeleted(AppConstants.IS_DELETED_NO);
@@ -78,21 +74,18 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
     @Override
     @Log
-    @Cache(key = "role:id:${id}")
     public Role findRoleById(Long id) {
         return myMapper.selectByPrimaryKey(id);
     }
 
     @Override
     @Log
-    @CacheDel(key = {"role:id:${role.id}", "role:all", "role:username*", "menu:username*"})
     public void updateRole(Role role) {
         myMapper.updateByPrimaryKeySelective(role);
     }
 
     @Override
     @Log
-    @CacheDel(key = {"menu:role:${code}", "menu:username*"})
     public void updateRoleMenus(String code, String menuCodes) {
         deleteRoleMenus(code);
 
@@ -103,7 +96,6 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
     @Override
     @Log
-    @CacheDel(key = {"role:id:${id}", "role:all", "role:username*", "menu:username*"})
     public void deleteRoleById(Long id) {
         myMapper.deleteByPrimaryKey(id);
     }
