@@ -47,7 +47,7 @@
         </div>
 
         <button class="btn btn-sm btn-inverse" data-toggle="search-submit">
-            统计
+            开始监控
             <span class="ace-icon fa fa-bar-chart-o icon-on-right bigger-110"></span>
         </button>
     </div>
