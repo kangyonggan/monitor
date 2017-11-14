@@ -20,4 +20,33 @@
         <result column="return_value" property="returnValue" jdbcType="LONGVARCHAR"/>
         <result column="args" property="args" jdbcType="LONGVARCHAR"/>
     </resultMap>
+
+    <select id="selectMonitors" resultMap="BaseResultMap">
+        SELECT id, app, type, description, package_name, class_name, method_name, begin_time, end_time, is_deleted
+        FROM monitor
+        <where>
+            is_deleted = 0
+            <if test="app != ''">
+                AND app = #{app}
+            </if>
+            <if test="type != ''">
+                AND type = #{type}
+            </if>
+            <if test="packageName != ''">
+                AND package_name = #{packageName}
+            </if>
+            <if test="className != ''">
+                AND class_name = #{className}
+            </if>
+            <if test="methodName != ''">
+                AND method_name = #{methodName}
+            </if>
+            <if test="minUsedTime > 0">
+                AND end_time - begin_time &gt;= #{minUsedTime}
+            </if>
+            <if test="maxUsedTime > 0">
+                AND end_time - begin_time &lt;= #{maxUsedTime}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -61,15 +61,15 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         Example.Criteria criteria = example.createCriteria();
 
         if (StringUtils.isNotEmpty(username)) {
-            criteria.andLike("username", StringUtil.toLikeString(username));
+            criteria.andEqualTo("username", username);
         }
 
         if (StringUtils.isNotEmpty(realname)) {
-            criteria.andLike("realname", StringUtil.toLikeString(realname));
+            criteria.andEqualTo("realname", realname);
         }
 
         if (StringUtils.isNotEmpty(email)) {
-            criteria.andLike("email", StringUtil.toLikeString(email));
+            criteria.andEqualTo("email", email);
         }
 
         example.setOrderByClause("id desc");

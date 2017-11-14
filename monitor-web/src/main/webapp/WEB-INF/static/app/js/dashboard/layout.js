@@ -20,7 +20,7 @@ $(function () {
     $(document).on("click", "[data-toggle='search-submit']", function (e) {
         e.preventDefault();
         var $this = $(this);
-        var $form = $this.parent("form");
+        var $form = $this.parents("form");
 
         var params = '?';
         var arr = $form.serializeArray();

@@ -51,9 +51,9 @@ public class ServerController {
      * @param name
      * @return
      */
-    @RequestMapping(value = "test", method = RequestMethod.GET)
-    @Monitor(description = "测试监控能不能落库")
-    public String test(@RequestParam(value = "name", required = false, defaultValue = "Monitor") String name) {
+    @RequestMapping(value = "test1", method = RequestMethod.GET)
+    @Monitor(type = "hello", description = "测试监控能不能落库")
+    public String test1(@RequestParam(value = "name", required = false, defaultValue = "Monitor") String name) {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -61,6 +61,23 @@ public class ServerController {
         }
 
         return "Hello " + name;
+    }
+
+    /**
+     * 测试监控
+     *
+     * @return
+     */
+    @RequestMapping(value = "test2", method = RequestMethod.GET)
+    @Monitor(type = "hello", description = "测试监控没有入参")
+    public String test2() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            log.error(e);
+        }
+
+        return "Hello Monitor";
     }
 
 }

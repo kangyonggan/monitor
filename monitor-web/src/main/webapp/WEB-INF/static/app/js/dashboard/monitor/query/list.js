@@ -1,0 +1,4 @@
+$(function () {
+    updateState("monitor/query");
+
+});

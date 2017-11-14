@@ -5,7 +5,6 @@ import com.kangyonggan.extra.core.annotation.Cache;
 import com.kangyonggan.extra.core.annotation.CacheDel;
 import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.monitor.biz.service.RoleService;
-import com.kangyonggan.monitor.biz.util.StringUtil;
 import com.kangyonggan.monitor.mapper.RoleMapper;
 import com.kangyonggan.monitor.model.constants.AppConstants;
 import com.kangyonggan.monitor.model.vo.Role;
@@ -59,10 +58,10 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
         Example.Criteria criteria = example.createCriteria();
         if (StringUtils.isNotEmpty(code)) {
-            criteria.andLike("code", StringUtil.toLikeString(code));
+            criteria.andEqualTo("code", code);
         }
         if (StringUtils.isNotEmpty(name)) {
-            criteria.andLike("name", StringUtil.toLikeString(name));
+            criteria.andEqualTo("name", name);
         }
 
         example.setOrderByClause("id desc");

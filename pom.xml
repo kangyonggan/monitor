@@ -101,7 +101,7 @@
         <aliyun.sms>3.0.0-rc1</aliyun.sms>
         <jaudiotagger.version>2.0.3</jaudiotagger.version>
         <tika.version>1.16</tika.version>
-        <extra.version>2.0.2</extra.version>
+        <extra.version>2.0.3</extra.version>
     </properties>
 
     <build>
