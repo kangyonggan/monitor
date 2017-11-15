@@ -60,7 +60,8 @@ $(function () {
     var myChart = echarts.init(document.getElementById('echart'));
     myChart.setOption(option);
 
-    setInterval(function () {
+    clearInterval(monitorTask);
+    monitorTask = setInterval(function () {
         $.get(ctx + "/dashboard/monitor/stat/next", {
             app: app,
             type: type,

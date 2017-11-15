@@ -42,3 +42,5 @@ $(function () {
         return false;
     });
 });
+
+var monitorTask;
