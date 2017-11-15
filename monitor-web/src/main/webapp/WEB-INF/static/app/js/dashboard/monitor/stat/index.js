@@ -93,6 +93,6 @@ $(function () {
             myChart.setOption(option);
         });
 
-    }, 2000);
+    }, interval * 1000);
 
 });
