@@ -41,6 +41,11 @@ $(function () {
         window.location.href = window.location.origin + window.location.pathname + hash + params;
         return false;
     });
+
+    $("a").click(function () {
+        clearInterval(monitorTask);
+        return true;
+    });
 });
 
 var monitorTask;
