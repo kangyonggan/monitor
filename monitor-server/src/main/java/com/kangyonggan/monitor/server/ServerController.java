@@ -55,7 +55,7 @@ public class ServerController {
     @Monitor(type = "hello", description = "测试监控能不能落库")
     public String test1(@RequestParam(value = "name", required = false, defaultValue = "Monitor") String name) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(300);
         } catch (InterruptedException e) {
             log.error(e);
         }
@@ -72,11 +72,10 @@ public class ServerController {
     @Monitor(type = "hello", description = "测试监控没有入参")
     public String test2() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
             log.error(e);
         }
-
         return "Hello Monitor";
     }
 

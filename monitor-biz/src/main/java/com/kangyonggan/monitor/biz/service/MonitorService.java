@@ -1,8 +1,10 @@
 package com.kangyonggan.monitor.biz.service;
 
+import com.kangyonggan.monitor.model.dto.MonitorDto;
 import com.kangyonggan.monitor.model.vo.Monitor;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author kangyonggan
@@ -39,4 +41,18 @@ public interface MonitorService {
      * @return
      */
     Monitor findMonitorById(Long id);
+
+    /**
+     * 查询实时监控
+     *
+     * @param app
+     * @param type
+     * @param packageName
+     * @param className
+     * @param methodName
+     * @param beginTime
+     * @param endTime
+     * @return
+     */
+    MonitorDto findMonitorStat(String app, String type, String packageName, String className, String methodName, Long beginTime, Long endTime);
 }

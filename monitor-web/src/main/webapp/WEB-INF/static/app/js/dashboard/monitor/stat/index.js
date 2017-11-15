@@ -24,33 +24,16 @@ $(function () {
             {
                 type: 'category',
                 boundaryGap: true,
-                data: (function () {
-                    var now = new Date();
-                    var res = [];
-                    var len = 10;
-                    while (len--) {
-                        res.unshift(now.pattern("HH:mm:ss") + "+2");
-                        now = new Date(now - 2000);
-                    }
-                    return res;
-                })()
+                data: xAxisData
             }
         ],
         yAxis: [
             {
                 type: 'value',
-                name: '并发量&TPS',
+                name: '并发量&TPS&平均耗时(s)',
                 scale: true,
-                max: 30,
+                max: maxValue + 10,
                 min: 0,
-                boundaryGap: [0.2, 0.2]
-            },
-            {
-                type: 'value',
-                name: '平均耗时(ms)',
-                scale: true,
-                max: 2000,
-                min: 500,
                 boundaryGap: [0.2, 0.2]
             }
         ],
@@ -58,41 +41,17 @@ $(function () {
             {
                 name: '并发量',
                 type: 'line',
-                data: (function () {
-                    var res = [];
-                    var len = 0;
-                    while (len < 10) {
-                        res.push((Math.random() * 10 + 5).toFixed(1) - 0);
-                        len++;
-                    }
-                    return res;
-                })()
+                data: seriesData1
             },
             {
                 name: '平均耗时',
                 type: 'line',
-                data: (function () {
-                    var res = [];
-                    var len = 0;
-                    while (len < 10) {
-                        res.push((Math.random() * 10 + 5).toFixed(1) - 0);
-                        len++;
-                    }
-                    return res;
-                })()
+                data: seriesData2
             },
             {
                 name: 'TPS',
                 type: 'line',
-                data: (function () {
-                    var res = [];
-                    var len = 0;
-                    while (len < 10) {
-                        res.push((Math.random() * 10 + 5).toFixed(1) - 0);
-                        len++;
-                    }
-                    return res;
-                })()
+                data: seriesData3
             }
         ]
     };
@@ -101,25 +60,39 @@ $(function () {
     var myChart = echarts.init(document.getElementById('echart'));
     myChart.setOption(option);
 
-    count = 11;
     setInterval(function () {
+        $.get(ctx + "/dashboard/monitor/stat/next", {
+            app: app,
+            type: type,
+            packageName: packageName,
+            className: className,
+            methodName: methodName,
+            interval: interval,
+            nextTime: nextTime
+        }, function (data) {
+            data = eval('(' + data + ')');
+            nextTime = data.lastTime;
 
-        option.series[0].data.shift();
-        option.series[0].data.push(Math.round(Math.random() * 20));
+            option.xAxis[0].data.shift();
+            var beginTime = new Date();
+            beginTime.setTime(data.nextMonitor.beginTime);
 
-        option.series[1].data.shift();
-        option.series[1].data.push(Math.round(Math.random() * 20));
+            var endTime = new Date();
+            endTime.setTime(data.nextMonitor.endTime);
+            option.xAxis[0].data.push(beginTime.pattern("HH:mm:ss") + "~" + endTime.pattern("HH:mm:ss"));
 
-        option.series[2].data.shift();
-        option.series[2].data.push(Math.round(Math.random() * 20));
+            option.series[0].data.shift();
+            option.series[0].data.push(data.nextMonitor.concurrencyCount);
 
-        var axisData = new Date().pattern("HH:mm:ss") + "+2";
-        option.xAxis[0].data.shift();
-        option.xAxis[0].data.push(axisData);
+            option.series[1].data.shift();
+            option.series[1].data.push(data.nextMonitor.usedTime);
 
-        myChart.setOption(option);
+            option.series[2].data.shift();
+            option.series[2].data.push(data.nextMonitor.tps);
+
+            myChart.setOption(option);
+        });
+
     }, 2000);
-
-
 
 });

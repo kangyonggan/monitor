@@ -49,4 +49,31 @@
             </if>
         </where>
     </select>
+
+    <select id="selectMonitorStat" parameterType="Long" resultType="com.kangyonggan.monitor.model.dto.MonitorDto">
+        SELECT
+          COUNT(*) AS concurrencyCount, AVG(end_time - begin_time) / 1000 AS usedTime, COUNT(*) * 1000 / AVG(end_time - begin_time) AS tps
+        FROM
+          monitor
+        <where>
+            is_deleted = 0
+            <if test="app != ''">
+                AND app = #{app}
+            </if>
+            <if test="type != ''">
+                AND type = #{type}
+            </if>
+            <if test="packageName != ''">
+                AND package_name = #{packageName}
+            </if>
+            <if test="className != ''">
+                AND class_name = #{className}
+            </if>
+            <if test="methodName != ''">
+                AND method_name = #{methodName}
+            </if>
+            AND begin_time &lt;= #{endTime}
+            AND end_time &gt;= #{beginTime}
+        </where>
+    </select>
 </mapper>

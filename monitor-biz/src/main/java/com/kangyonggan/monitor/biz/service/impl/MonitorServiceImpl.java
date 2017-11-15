@@ -5,6 +5,7 @@ import com.kangyonggan.extra.core.annotation.Log;
 import com.kangyonggan.monitor.biz.service.MonitorService;
 import com.kangyonggan.monitor.mapper.MonitorMapper;
 import com.kangyonggan.monitor.model.constants.AppConstants;
+import com.kangyonggan.monitor.model.dto.MonitorDto;
 import com.kangyonggan.monitor.model.vo.Monitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,11 @@ public class MonitorServiceImpl extends BaseService<Monitor> implements MonitorS
     @Log
     public Monitor findMonitorById(Long id) {
         return myMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    @Log
+    public MonitorDto findMonitorStat(String app, String type, String packageName, String className, String methodName, Long beginTime, Long endTime) {
+        return monitorMapper.selectMonitorStat(app, type, packageName, className, methodName, beginTime, endTime);
     }
 }

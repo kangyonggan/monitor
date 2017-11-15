@@ -5,6 +5,7 @@
 <#assign className = RequestParameters.className!'' />
 <#assign methodName = RequestParameters.methodName!'' />
 <#assign interval = RequestParameters.interval!'2' />
+<#assign intervalCount = RequestParameters.intervalCount!'5' />
 
 <div class="page-header">
     <h1>
@@ -45,6 +46,10 @@
             <input type="number" class="form-control" name="interval" value="${interval}" placeholder="取点间隔(秒)"
                    autocomplete="off"/>
         </div>
+        <div class="input-group">
+            <input type="number" class="form-control" name="intervalCount" value="${intervalCount}" placeholder="取点个数"
+                   autocomplete="off"/>
+        </div>
 
         <button class="btn btn-sm btn-inverse" data-toggle="search-submit">
             开始监控
@@ -57,6 +62,44 @@
 
 <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
 <div id="echart" style="width: 100%;height:400px;"></div>
+
+<script>
+    var app = '${app}';
+    var type = '${type}';
+    var packageName = '${packageName}';
+    var className = '${className}';
+    var methodName = '${methodName}';
+    var interval = '${interval}';
+    var nextTime = ${lastTime};
+
+    var xAxisData = [];
+    var seriesData1 = [];
+    var seriesData2= [];
+    var seriesData3 = [];
+
+    var maxValue = 0;
+    <#list monitors as monitor>
+    xAxisData.unshift('${monitor.beginTime?number_to_date?string("HH:mm:ss")}' + "~" + '${monitor.endTime?number_to_date?string("HH:mm:ss")}');
+    var concurrencyCount = ${monitor.concurrencyCount};
+    seriesData1.unshift(concurrencyCount);
+    var usedTime = ${monitor.usedTime};
+    seriesData2.unshift(usedTime);
+    var tps = ${monitor.tps};
+    seriesData3.unshift(tps);
+
+    if (concurrencyCount > maxValue) {
+        maxValue = Math.ceil(concurrencyCount);
+    }
+    if (usedTime > maxValue) {
+        maxValue = Math.ceil(usedTime);
+    }
+    if (tps > maxValue) {
+        maxValue = Math.ceil(tps);
+    }
+    </#list>
+
+
+</script>
 
 <script src="${ctx}/static/libs/echart/echarts.common.min.js"></script>
 <script src="${ctx}/static/libs/dateformat.js"></script>
