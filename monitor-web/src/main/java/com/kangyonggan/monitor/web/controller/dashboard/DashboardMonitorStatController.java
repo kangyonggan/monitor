@@ -79,7 +79,7 @@ public class DashboardMonitorStatController extends BaseController {
      * @return
      */
     @RequestMapping(value = "next", method = RequestMethod.GET)
-    @RequiresPermissions("MONITOR_STAT")
+//    @RequiresPermissions("MONITOR_STAT")// 权限认证没做缓存，每次都会查库， 有点浪费
     @ResponseBody
     public Map<String, Object> nextMonitor(@RequestParam(value = "app", required = false, defaultValue = "") String app,
                                            @RequestParam(value = "type", required = false, defaultValue = "") String type,
