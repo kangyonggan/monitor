@@ -48,6 +48,7 @@
                 AND end_time - begin_time &lt;= #{maxUsedTime}
             </if>
         </where>
+        ORDER BY id DESC
     </select>
 
     <select id="selectMonitorStat" parameterType="Long" resultType="com.kangyonggan.monitor.model.dto.MonitorDto">
