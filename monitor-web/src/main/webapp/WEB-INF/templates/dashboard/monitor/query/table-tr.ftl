@@ -3,7 +3,6 @@
 <tr id="monitor-${monitor.id}">
     <td>${monitor.app}</td>
     <td>${monitor.type}</td>
-    <td>${monitor.packageName}</td>
     <td>${monitor.className}</td>
     <td>${monitor.methodName}</td>
     <td>${monitor.beginTime?number_to_date?string('yyyy-MM-dd HH:mm:ss.SSS')}</td>
