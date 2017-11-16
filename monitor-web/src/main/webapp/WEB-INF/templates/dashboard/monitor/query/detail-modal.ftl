@@ -44,7 +44,7 @@
         <td>${monitor.endTime - monitor.beginTime}ms</td>
     </tr>
     <tr>
-        <th>入参类型/th>
+        <th>入参类型</th>
         <td>${monitor.argTypes}</td>
     </tr>
     <tr>
