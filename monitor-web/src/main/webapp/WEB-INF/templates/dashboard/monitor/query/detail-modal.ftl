@@ -44,12 +44,12 @@
         <td>${monitor.endTime - monitor.beginTime}ms</td>
     </tr>
     <tr>
-        <th>入参</th>
-        <td>${monitor.args}</td>
+        <th>入参类型/th>
+        <td>${monitor.argTypes}</td>
     </tr>
     <tr>
-        <th>返回值</th>
-        <td>${monitor.returnValue}</td>
+        <th>返回值类型</th>
+        <td>${monitor.returnType}</td>
     </tr>
     <tr>
         <th>逻辑删除</th>
