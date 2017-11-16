@@ -14,15 +14,15 @@
         <result column="method_name" property="methodName" jdbcType="VARCHAR"/>
         <result column="begin_time" property="beginTime" jdbcType="BIGINT"/>
         <result column="end_time" property="endTime" jdbcType="BIGINT"/>
+        <result column="arg_types" property="argTypes" jdbcType="VARCHAR"/>
+        <result column="return_type" property="returnType" jdbcType="VARCHAR"/>
         <result column="is_deleted" property="isDeleted" jdbcType="TINYINT"/>
         <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
         <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
-        <result column="return_value" property="returnValue" jdbcType="LONGVARCHAR"/>
-        <result column="args" property="args" jdbcType="LONGVARCHAR"/>
     </resultMap>
 
     <select id="selectMonitors" resultMap="BaseResultMap">
-        SELECT id, app, type, description, package_name, class_name, method_name, begin_time, end_time, is_deleted
+        SELECT id, app, type, description, class_name, method_name, begin_time, end_time
         FROM monitor
         <where>
             is_deleted = 0

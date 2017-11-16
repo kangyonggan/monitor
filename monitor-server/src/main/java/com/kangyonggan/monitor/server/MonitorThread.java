@@ -6,7 +6,6 @@ import com.kangyonggan.monitor.biz.util.SpringUtils;
 import com.kangyonggan.monitor.model.dto.MonitorInfo;
 import com.kangyonggan.monitor.model.vo.Monitor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -98,15 +97,8 @@ public class MonitorThread {
         monitor.setMethodName(monitorInfo.getMethodName());
         monitor.setBeginTime(monitorInfo.getBeginTime());
         monitor.setEndTime(monitorInfo.getEndTime());
-        monitor.setArgs(JSONObject.toJSONString(monitorInfo.getArgs()));
-        monitor.setReturnValue(JSONObject.toJSONString(monitorInfo.getReturnValue()));
-
-        if (StringUtils.isEmpty(monitor.getArgs())) {
-            monitor.setArgs(StringUtils.EMPTY);
-        }
-        if (StringUtils.isEmpty(monitor.getReturnValue())) {
-            monitor.setReturnValue(StringUtils.EMPTY);
-        }
+        monitor.setReturnType(monitorInfo.getReturnType());
+        monitor.setArgTypes(JSONObject.toJSONString(monitorInfo.getArgTypes()));
 
         return monitor;
     }

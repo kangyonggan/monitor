@@ -173,10 +173,10 @@ CREATE TABLE monitor
   COMMENT '开始时间',
   end_time     BIGINT                                NOT NULL
   COMMENT '结束时间',
-  return_value LONGTEXT                              NOT NULL
-  COMMENT '返回值',
-  args         LONGTEXT                              NOT NULL
-  COMMENT '参数',
+  return_type  VARCHAR(256)                          NOT NULL
+  COMMENT '返回值类型',
+  arg_types    VARCHAR(1024)                         NOT NULL
+  COMMENT '参数类型',
   is_deleted   TINYINT                               NOT NULL                    DEFAULT 0
   COMMENT '逻辑删除',
   created_time TIMESTAMP                             NOT NULL                    DEFAULT CURRENT_TIMESTAMP

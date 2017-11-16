@@ -80,15 +80,15 @@ public class Monitor implements Serializable {
     private Date updatedTime;
 
     /**
-     * 返回值
+     * 返回值类型
      */
-    @Column(name = "return_value")
-    private String returnValue;
+    @Column(name = "return_type")
+    private String returnType;
 
     /**
-     * 参数
+     * 参数类型
      */
-    private String args;
+    private String argTypes;
 
     private static final long serialVersionUID = 1L;
 }
