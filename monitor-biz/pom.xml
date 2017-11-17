@@ -139,7 +139,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.freemarker</groupId>
+            <groupId>com.kangyonggan</groupId>
             <artifactId>freemarker</artifactId>
         </dependency>
         <dependency>

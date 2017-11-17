@@ -19,6 +19,12 @@
         <property name="exposeSpringMacroHelpers" value="true"/>
     </bean>
 
+    <bean id="blockDirective" class="com.kangyonggan.freemarker.BlockDirective"/>
+    <bean id="extendsDirective" class="com.kangyonggan.freemarker.ExtendsDirective"/>
+    <bean id="overrideDirective" class="com.kangyonggan.freemarker.OverrideDirective"/>
+    <bean id="superDirective" class="com.kangyonggan.freemarker.SuperDirective"/>
+    <bean id="shiroTags" class="com.kangyonggan.monitor.biz.shiro.ShiroTags"/>
+
     <!-- FreeMarker的配置 -->
     <bean id="freeMarkerConfigurer"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
